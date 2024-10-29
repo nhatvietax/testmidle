@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RestInn - Luxury Hotel & Resort</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+
+    <style>
+        :root {
+            --primary: #00b894;
+            --secondary: #2d3436;
+            --light: #f8f9fa;
+            --dark: #1a1a1a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .playfair {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* Glass Effect */
+        .glass {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .dark .glass {
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        /* Custom Animations */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .float {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        /* Navbar Styles */
+        .nav-link {
+            position: relative;
+            padding: 0.5rem 1rem;
+            transition: 0.3s;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            transition: 0.3s;
+        }
+
+        .nav-link:hover::after {
+            width: 70%;
+        }
+
+        /* Hero Section Background */
+        .hero-bg {
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://picsum.photos/2200/1200?random=1');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        /* Room Cards */
+        .room-card {
+            transition: 0.3s;
+        }
+
+        .room-card:hover {
+            transform: translateY(-10px);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--light);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 5px;
+        }
+
+        /* Dark Mode Styles */
+        .dark {
+            background-color: var(--dark);
+            color: var(--light);
+        }
+
+        .dark .bg-white {
+            background-color: #2d3436 !important;
+        }
+
+        .dark .text-gray-800 {
+            color: var(--light) !important;
+        }
+    </style>
+</head>
+<body class="relative overflow-x-hidden">
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 glass">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <a href="#" class="text-3xl font-bold playfair text-primary">RestInn</a>
+                
+                <div class="hidden md:flex space-x-8">
+                    <a href="#home" class="nav-link">Home</a>
+                    <a href="#rooms" class="nav-link">Rooms</a>
+                    <a href="#about" class="nav-link">About</a>
+                    <a href="#gallery" class="nav-link">Gallery</a>
+                    <a href="#contact" class="nav-link">Contact</a>
+                </div>
+
+                <div class="flex items-center space-x-4">
+                    <button id="darkModeToggle" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    <a href="#book" class="bg-primary text-white px-6 py-2 rounded-full hover:bg-opacity-90 transition">Book Now</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-bg min-h-screen flex items-center">
+        <div class="container mx-auto px-6 py-24">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div data-aos="fade-right">
+                    <h1 class="text-5xl md:text-7xl font-bold text-white playfair mb-6">
+                        The Best Hotel & Restaurant
+                    </h1>
+                    <p class="text-gray-200 mb-8 text-lg">
+                        Experience luxury living with our premium accommodations and world-class service.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#book" class="bg-primary text-white px-8 py-3 rounded-full hover:bg-opacity-90 transition">
+                            Book Now
+                        </a>
+                        <a href="#about" class="border-2 border-white text-white px-8 py-3 rounded-full hover:bg-white hover:text-gray-900 transition">
+                            Learn More
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Booking Form -->
+                <div data-aos="fade-left" class="glass rounded-2xl p-8">
+                    <h2 class="text-3xl font-bold text-white playfair mb-6">Make a Reservation</h2>
+                    <form class="space-y-6">
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="text-white mb-2 block">Check In</label>
+                                <input type="date" class="w-full p-3 rounded-lg bg-white bg-opacity-20 text-white">
+                            </div>
+                            <div>
+                                <label class="text-white mb-2 block">Check Out</label>
+                                <input type="date" class="w-full p-3 rounded-lg bg-white bg-opacity-20 text-white">
+                            </div>
+                        </div>
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="text-white mb-2 block">Adults</label>
+                                <select class="w-full p-3 rounded-lg bg-white bg-opacity-20 text-white">
+                                    <option>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                    <option>4</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="text-white mb-2 block">Children</label>
+                                <select class="w-full p-3 rounded-lg bg-white bg-opacity-20 text-white">
+                                    <option>0</option>
+                                    <option>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="text-white mb-2 block">Room Type</label>
+                            <select class="w-full p-3 rounded-lg bg-white bg-opacity-20 text-white">
+                                <option>Standard Room</option>
+                                <option>Deluxe Room</option>
+                                <option>Family Room</option>
+                                <option>Luxury Suite</option>
+                            </select>
+                        </div>
+                        <button class="w-full bg-primary text-white py-3 rounded-lg hover:bg-opacity-90 transition">
+                            Check Availability
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Rooms -->
+    <section id="rooms" class="py-24 bg-gray-50 dark:bg-gray-900">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold playfair mb-4" data-aos="fade-up">Special Rooms</h2>
+                <p class="text-gray-600 dark:text-gray-400" data-aos="fade-up" data-aos-delay="100">
+                    Choose from our carefully curated selection of premium rooms
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Room Card 1 -->
+                <div class="room-card glass rounded-xl overflow-hidden" data-aos="fade-up">
+                    <img src="https://picsum.photos/800/600?random=2" alt="Family Room" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold playfair mb-2">Family Room</h3>
+                        <p class="text-primary text-2xl font-bold mb-4">$1000/night</p>
+                        <ul class="space-y-2 mb-6">
+                            <li><i class="fas fa-check text-primary mr-2"></i>Full Breakfast</li>
+                            <li><i class="fas fa-check text-primary mr-2"></i>Service Bar</li>
+                            <li><i class="fas fa-check text-primary mr-2"></i>Cable TV</li>
+                        </ul>
+                        <button class="w-full bg-primary text-white py-2 rounded-lg hover:bg-opacity-90 transition">
+                            Book Now
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Room Card 2 -->
+                <div class="room-card glass rounded-xl overflow-hidden" data-aos="fade-up" data-aos-delay="100">
+                    <img src="https://picsum.photos/800/600?random=3" alt="Standard Room" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold playfair mb-2">Standard Room</h3>
+                        <p class="text-primary text-2xl font-bold mb-4">$450/night</p>
+                        <ul class="space-y-2 mb-6">
+                            <li><i class="fas fa-check text-primary mr-2"></i>Full Breakfast</li>
+                            <li><i class="fas fa-check text-primary mr-2"></i>Service Bar</li>
+                            <li><i class="fas fa-check text-primary mr-2"></i>Cable TV</li>
+                        </ul>
+                        <button class="w-full bg-primary text-white py-2 rounded-lg hover:bg-opacity-90 transition">
+                            Book Now
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Room Card 3 -->
+                <div class="room-card glass rounded-xl overflow-hidden" data-aos="fade-up" data-aos-delay="200">
+                    <img src="https://picsum.photos/800/600?random=4" alt="Deluxe Room" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold playfair mb-2">Deluxe Room</h3>
+                        <p class="text-primary text-2xl font-bold mb-4">$350/night</p>
+                        <ul class="space-y-2 mb-6">
+                            <li><i class="fas fa-check text-primary mr-2"></i>Full Breakfast</li>
+                            <li><i class="fas fa-check text-primary mr-2"></i>Service Bar</li>
+                            <li><i class="fas fa-check text-primary mr-2"></i>Cable TV</li>
+                        </ul>
+                        <button class="w-full bg-primary text-white py-2 rounded-lg hover:bg-opacity-90 transition">
+                            Book Now
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Room Card 4 -->
+                <div class="room-card glass rounded-xl overflow-hidden" data-aos="fade-up" data-aos-delay="300">
+                    <img src="https://picsum.photos/800/600?random=5" alt="Luxury Room" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold playfair mb-2">Luxury Room</h3>
+                        <p class="text-primary text-2xl font-bold mb-4">$500/night</p>
+                        <ul class="space-y-2 mb-6">
+                            <li><i class="fas fa-check text-primary mr-2"></i>Full Breakfast</li>
+                            <li><i class="fas fa-check text-primary mr-2"></i>Service Bar</li>
+                            <li><i class="fas fa-check text-primary mr-2"></i>Cable TV</li>
+                        </ul>
+                        <button class="w-full bg-primary text-white py-2 rounded-lg hover:bg-opacity-90 transition">
+                            Book Now
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-24">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div data-aos="fade-right">
+                    <h2 class="text-4xl font-bold playfair mb-6">About Us & Hotel Facilities</h2>
+                    <p class="text-gray-600 dark:text-gray-400 mb-8">
+                        Mauris mauris ante, blandit et, ultrices a, suscipit eget, quam. Integer ut neque. Vivamus nisi metus, molestie vel, gravida in, condimentum sit amet, nunc. Nam a nibh. Donec suscipit eros.
+                    </p>
+                    <div class="grid grid-cols-2 gap-6">
+                        <div class="p-6 glass rounded-xl">
+                            <i class="fas fa-car text-primary text-3xl mb-4"></i>
+                            <h3 class="text-xl font-bold mb-2">Car Rental</h3>
+                            <p class="text-gray-600 dark:text-gray-400">Premium car rental services available</p>
+                        </div>
+                        <div class="p-6 glass rounded-xl">
+                            <i class="fas fa-ship text-primary text-3xl mb-4"></i>
+                            <h3 class="text-xl font-bold mb-2">Yacht Hiring</h3>
+                            <p class="text-gray-600 dark:text-gray-400">Luxury yacht experiences</p>
+                        </div>
+                        <div class="p-6 glass rounded-xl">
+                            <i class="fas fa-horse text-primary text-3xl mb-4"></i>
+                            <h3 class="text-xl font-bold mb-2">Horse Riding</h3>
+                            <p class="text-gray-600 dark:text-gray-400">Scenic horse riding tours</p>
+                        </div>
+                        <div class="p-6 glass rounded-xl">
+                            <i class="fas fa-concierge-bell text-primary text-3xl mb-4"></i>
+                            <h3 class="text-xl font-bold mb-2">Room Service</h3>
+                            <p class="text-gray-600 dark:text-gray-400">24/7 room service available</p>
+                        </div>
+                    </div>
+                </div>
+                <div data-aos="fade-left">
+                    <img src="https://picsum.photos/800/1000?random=6" alt="Hotel Interior" class="rounded-2xl shadow-xl">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="py-24 bg-gray-50 dark:bg-gray-900">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold playfair mb-4" data-aos="fade-up">Client Testimonials</h2>
+                <p class="text-gray-600 dark:text-gray-400" data-aos="fade-up" data-aos-delay="100">
+                    What our guests say about their experience
+                </p>
+            </div>
+
+            <div class="swiper testimonialSwiper">
+                <div class="swiper-wrapper">
+                    <!-- Testimonial 1 -->
+                    <div class="swiper-slide">
+                        <div class="glass p-8 rounded-xl">
+                            <div class="flex items-center mb-4">
+                                <img src="https://picsum.photos/100/100?random=7" alt="Client" class="w-16 h-16 rounded-full mr-4">
+                                <div>
+                                    <h3 class="font-bold text-xl">Joliya Wastorn</h3>
+                                    <p class="text-primary">CEO Envato</p>
+                                </div>
+                            </div>
+                            <p class="text-gray-600 dark:text-gray-400">
+                                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Add more testimonials as needed -->
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-2 gap-12">
+                <div data-aos="fade-right">
+                    <h2 class="text-4xl font-bold playfair mb-6">Get in Touch</h2>
+                    <p class="text-gray-600 dark:text-gray-400 mb-8">
+                        Have questions? We'd love to hear from you. Send us a message and we'll respond as soon as possible.
+                    </p>
+                    <div class="space-y-4">
+                        <div class="flex items-center">
+                            <i class="fas fa-phone text-primary mr-4"></i>
+                            <p>+11 (233) 4569</p>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-envelope text-primary mr-4"></i>
+                            <p>sugotech@gmail.com</p>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-map-marker-alt text-primary mr-4"></i>
+                            <p>123 Hotel Street, City, Country</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div data-aos="fade-left">
+                    <form class="glass p-8 rounded-xl">
+                        <div class="grid md:grid-cols-2 gap-6 mb-6">
+                            <input type="text" placeholder="Name" class="w-full p-3 rounded-lg bg-white bg-opacity-20">
+                            <input type="email" placeholder="Email" class="w-full p-3 rounded-lg bg-white bg-opacity-20">
+                        </div>
+                        <input type="text" placeholder="Subject" class="w-full p-3 rounded-lg bg-white bg-opacity-20 mb-6">
+                        <textarea placeholder="Message" rows="5" class="w-full p-3 rounded-lg bg-white bg-opacity-20 mb-6"></textarea>
+                        <button class="w-full bg-primary text-white py-3 rounded-lg hover:bg-opacity-90 transition">
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-2xl font-bold playfair mb-4">RestInn</h3>
+                    <p class="text-gray-400">
+                        Luxury accommodations for the discerning traveler.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="text-xl font-bold mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#home" class="hover:text-primary transition">Home</a></li>
+                        <li><a href="#rooms" class="hover:text-primary transition">Rooms</a></li>
+                        <li><a href="#about" class="hover:text-primary transition">About</a></li>
+                        <li><a href="#contact" class="hover:text-primary transition">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-xl font-bold mb-4">Contact Info</h4>
+                    <ul class="space-y-2">
+                        <li>+11 (233) 4569</li>
+                        <li>sugotech@gmail.com</li>
+                        <li>123 Hotel Street, City</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-xl font-bold mb-4">Follow Us</h4>
+                    <div class="flex space-x-4">
+                        <a href="#" class="hover:text-primary transition"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="hover:text-primary transition"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="hover:text-primary transition"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="hover:text-primary transition"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center">
+                <p>&copy; 2024 RestInn. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 1000,
+            once: true
+        });
+
+        // Initialize Swiper
+        new Swiper('.testimonialSwiper', {
+            slidesPerView: 1,
+            spaceBetween: 30,
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true
+            },
+            breakpoints: {
+                640: {
+                    slidesPerView: 2
+                },
+                1024: {
+                    slidesPerView: 3
+                }
+            }
+        });
+
+        // Dark Mode Toggle
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        darkModeToggle.addEventListener('click', () => {
+            document.documentElement.classList.toggle('dark');
+            const icon = darkModeToggle.querySelector('i');
+            icon.classList.toggle('fa-moon');
+            icon.classList.toggle('fa-sun');
+        });
+
+        // Smooth Scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
